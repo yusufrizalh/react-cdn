@@ -3,14 +3,25 @@
       > komponen yang nilainya dapat berubah secara otomatis
       > tanpa perlu adanya refresh/reload
       > aktifkan dengan Hook useState 
+    # Komponen Auto run:
+      > komponen dijalankan secara otomatis tanpa perlu dipanggil
+      > menggunakan Hook useEffect
 */
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import BlogList from "./BlogList";
 
 const Home = () => {
   // buat suatu method untuk dijalankan
   // pada React = () => disebut dengan Hook
+
+  const [name, setName] = useState("Yusuf Rizal");
+
+  // penggunaan hook useEffect
+  useEffect(() => {
+    console.log("useEffect is here");
+    console.log(name);
+  }, [name]);
 
   // penggunaan hook useState
   const [blogs, setBlogs] = useState([
@@ -58,6 +69,9 @@ const Home = () => {
         title="All Blogs"
         handleDeleteBlog={handleDeleteBlog}
       />
+
+      <button onClick={() => setName("James Arthur")}>Change Name</button>
+      <p>{name}</p>
 
       {/* <BlogList
         blogs={blogs.filter((blog) => blog.author === "Rizal")}
