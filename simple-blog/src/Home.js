@@ -13,8 +13,6 @@ const Home = () => {
   // pada React = () => disebut dengan Hook
 
   // penggunaan hook useState
-  const [name, setName] = useState("Rizal");
-  const [email, setEmail] = useState("rizal@inixindo.co.id");
   const [blogs, setBlogs] = useState([
     {
       title: "My New Website",
@@ -48,20 +46,44 @@ const Home = () => {
     },
   ]);
 
-  const handleClick = () => {
-    setName("Yusuf");
-    setEmail("yusuf@email.com");
+  const handleDeleteBlog = (id) => {
+    const newBlogs = blogs.filter((blog) => blog.id !== id);
+    setBlogs(newBlogs);
   };
 
   return (
     <div className="home">
-      <BlogList blogs={blogs} title="All Blogs" />
       <BlogList
+        blogs={blogs}
+        title="All Blogs"
+        handleDeleteBlog={handleDeleteBlog}
+      />
+
+      {/* <BlogList
         blogs={blogs.filter((blog) => blog.author === "Rizal")}
         title="Rizal's Blog"
-      />
+      /> */}
     </div>
   );
 };
 
 export default Home;
+
+/*
+    # Perbedaan operator perbandingan
+      > = assignment -> a = 10
+      > == compare -> nilainya saja a == 10
+      > === compare -> nilai dan tipe datanya a === 10 
+*/
+
+/*
+// assignment
+a = 10; // integer
+b = "10"; // string
+
+// compare dengan == : membandingkan nilainya saja
+a == b; // true
+
+// compare dengan === : membandingkan nilai dan tipe data
+a === b; // false
+*/
