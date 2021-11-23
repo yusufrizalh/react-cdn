@@ -1,20 +1,31 @@
+/*
+    # Komponen Reactive:
+      > komponen yang nilainya dapat berubah secara otomatis
+      > tanpa perlu adanya refresh/reload
+      > aktifkan dengan Hook useState 
+*/
+
+import { useState } from "react";
+
 const Home = () => {
   // buat suatu method untuk dijalankan
   // pada React = () => disebut dengan Hook
-  const handleClick = (name) => {
-    console.log("Hello, " + name);
+
+  // penggunaan hook useState
+  const [name, setName] = useState("Rizal");
+  const [email, setEmail] = useState("rizal@inixindo.co.id");
+
+  const handleClick = () => {
+    setName("Yusuf");
+    setEmail("yusuf@email.com");
   };
 
   return (
     <div className="home">
       <h2>Homepage</h2>
-      <button
-        onClick={() => {
-          handleClick("James");
-        }}
-      >
-        Click me
-      </button>
+      <p>{name}</p>
+      <p>{email}</p>
+      <button onClick={handleClick}>Click me</button>
     </div>
   );
 };
