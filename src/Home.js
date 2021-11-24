@@ -17,24 +17,34 @@ const Home = () => {
 
   const [blogs, setBlogs] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState(null);
 
   // penggunaan hook useEffect
   useEffect(() => {
     setTimeout(() => {
       fetch("http://localhost:8001/blogs") // endpoint
         .then((result) => {
+          // console.log(result);
+          if (!result.ok) {
+            throw Error("Could not fetch data for resources!");
+          }
           return result.json();
         })
         .then((dataJson) => {
           // console.log(dataJson);
           setBlogs(dataJson);
           setIsLoading(false);
+        })
+        .catch((error) => {
+          // console.log(error.message);
+          setError(error.message);
         });
     }, 4000);
   }, []);
 
   return (
     <div className="home">
+      {error && <div>{error}</div>}
       {isLoading && <div>Loading.....</div>}
       {blogs && <BlogList blogs={blogs} title="All Blogs" />}
     </div>
