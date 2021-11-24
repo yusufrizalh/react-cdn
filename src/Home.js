@@ -38,6 +38,9 @@ const Home = () => {
         .catch((error) => {
           // console.log(error.message);
           setError(error.message);
+        })
+        .finally(() => {
+          console.log("Finally is called!");
         });
     }, 4000);
   }, []);
