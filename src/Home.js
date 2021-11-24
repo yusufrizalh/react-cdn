@@ -16,21 +16,26 @@ const Home = () => {
   // pada React = () => disebut dengan Hook
 
   const [blogs, setBlogs] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   // penggunaan hook useEffect
   useEffect(() => {
-    fetch("http://localhost:8001/blogs") // endpoint
-      .then((result) => {
-        return result.json();
-      })
-      .then((dataJson) => {
-        // console.log(dataJson);
-        setBlogs(dataJson);
-      });
+    setTimeout(() => {
+      fetch("http://localhost:8001/blogs") // endpoint
+        .then((result) => {
+          return result.json();
+        })
+        .then((dataJson) => {
+          // console.log(dataJson);
+          setBlogs(dataJson);
+          setIsLoading(false);
+        });
+    }, 4000);
   }, []);
 
   return (
     <div className="home">
+      {isLoading && <div>Loading.....</div>}
       {blogs && <BlogList blogs={blogs} title="All Blogs" />}
     </div>
   );
