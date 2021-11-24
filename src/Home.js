@@ -15,68 +15,23 @@ const Home = () => {
   // buat suatu method untuk dijalankan
   // pada React = () => disebut dengan Hook
 
-  const [name, setName] = useState("Yusuf Rizal");
+  const [blogs, setBlogs] = useState(null);
 
   // penggunaan hook useEffect
   useEffect(() => {
-    console.log("useEffect is here");
-    console.log(name);
-  }, [name]);
-
-  // penggunaan hook useState
-  const [blogs, setBlogs] = useState([
-    {
-      title: "My New Website",
-      body: "This is my new website",
-      author: "Yusuf",
-      id: 1,
-    },
-    {
-      title: "Welcome to My Web",
-      body: "My web is from React",
-      author: "Rizal",
-      id: 2,
-    },
-    {
-      title: "Web Development with React",
-      body: "Learn React from the scratch",
-      author: "Yusuf",
-      id: 3,
-    },
-    {
-      title: "React.js Top Tips",
-      body: "React is so easy",
-      author: "Rizal",
-      id: 4,
-    },
-    {
-      title: "React Hook",
-      body: "Learn React Hook with useState",
-      author: "James",
-      id: 5,
-    },
-  ]);
-
-  const handleDeleteBlog = (id) => {
-    const newBlogs = blogs.filter((blog) => blog.id !== id);
-    setBlogs(newBlogs);
-  };
+    fetch("http://localhost:8001/blogs") // endpoint
+      .then((result) => {
+        return result.json();
+      })
+      .then((dataJson) => {
+        // console.log(dataJson);
+        setBlogs(dataJson);
+      });
+  }, []);
 
   return (
     <div className="home">
-      <BlogList
-        blogs={blogs}
-        title="All Blogs"
-        handleDeleteBlog={handleDeleteBlog}
-      />
-
-      <button onClick={() => setName("James Arthur")}>Change Name</button>
-      <p>{name}</p>
-
-      {/* <BlogList
-        blogs={blogs.filter((blog) => blog.author === "Rizal")}
-        title="Rizal's Blog"
-      /> */}
+      {blogs && <BlogList blogs={blogs} title="All Blogs" />}
     </div>
   );
 };

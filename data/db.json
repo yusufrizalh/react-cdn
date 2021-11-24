@@ -29,6 +29,12 @@
       "body": "Learn React Hook with useState",
       "author": "James",
       "id": 5
+    },
+    {
+      "title": "React Fetch Data",
+      "body": "Fetch data from json-server",
+      "author": "Rizal",
+      "id": 6
     }
   ]
 }
