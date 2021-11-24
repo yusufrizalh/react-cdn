@@ -5,6 +5,7 @@ const BlogList = ({ blogs, title, handleDeleteBlog }) => {
       {blogs.map((blog) => (
         <div className="blog-preview" key={blog.id}>
           <h2>{blog.title}</h2>
+          <img src={blog.avatar} width="40px" height="40px" alt="Avatar" />
           <p>Writen by {blog.author}</p>
         </div>
       ))}
