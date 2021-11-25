@@ -1,14 +1,17 @@
 import { useState } from "react";
+import { useHistory } from "react-router-dom";
 
 const Create = () => {
   const [title, setTitle] = useState("");
   const [body, setBody] = useState("");
   const [author, setAuthor] = useState("James");
+  const [isLoading, setIsLoading] = useState(false);
+  const history = useHistory();
 
   const handleSubmit = (event) => {
     event.preventDefault(); // untuk menghindari adanya refresh
     const blog = { title, body, author };
-    console.log(blog);
+    setIsLoading(true);
 
     fetch("http://localhost:8001/blogs", {
       method: "POST",
@@ -19,6 +22,8 @@ const Create = () => {
     })
       .then(() => {
         console.log("New blog added");
+        setIsLoading(false);
+        history.push("/");
       })
       .catch((error) => {
         console.log(error.message);
@@ -48,7 +53,8 @@ const Create = () => {
           <option value="Rizal">Rizal</option>
           <option value="James">James</option>
         </select>
-        <button>Add Blog</button>
+        {!isLoading && <button>Add Blog</button>}
+        {isLoading && <button disabled>Adding Blog.....</button>}
         <br />
         <br />
         <p>{title}</p>
