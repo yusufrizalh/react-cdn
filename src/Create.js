@@ -9,6 +9,20 @@ const Create = () => {
     event.preventDefault(); // untuk menghindari adanya refresh
     const blog = { title, body, author };
     console.log(blog);
+
+    fetch("http://localhost:8001/blogs", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(blog),
+    })
+      .then(() => {
+        console.log("New blog added");
+      })
+      .catch((error) => {
+        console.log(error.message);
+      });
   };
 
   return (
