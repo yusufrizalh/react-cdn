@@ -1,13 +1,22 @@
-import { useParams } from "react-router-dom";
+import { useParams, useHistory } from "react-router-dom";
 import UseFetch from "./UseFetch";
 
 const BlogDetails = () => {
+  const history = useHistory();
   const { id } = useParams();
   const {
     data: blog,
     isLoading,
     error,
   } = UseFetch("http://localhost:8001/blogs/" + id);
+
+  const handleDeleteBlog = () => {
+    fetch("http://localhost:8001/blogs/" + blog.id, {
+      method: "DELETE",
+    }).then(() => {
+      history.push("/");
+    });
+  };
 
   return (
     <div className="blog-details">
@@ -19,6 +28,9 @@ const BlogDetails = () => {
           <img src={blog.avatar} alt="Avatar" width="100px" height="100px" />
           <p>Writen by {blog.author}</p>
           <div>{blog.body}</div>
+          <br />
+          <br />
+          <button onClick={handleDeleteBlog}>Delete Blog</button>
         </article>
       )}
     </div>
